@@ -3,7 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.closeDb = exports.dbAll = exports.dbGet = exports.dbRun = exports.getDb = exports.saveDb = exports.initDb = void 0;
+exports.initDb = initDb;
+exports.saveDb = saveDb;
+exports.getDb = getDb;
+exports.dbRun = dbRun;
+exports.dbGet = dbGet;
+exports.dbAll = dbAll;
+exports.closeDb = closeDb;
 const sql_js_1 = __importDefault(require("sql.js"));
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
@@ -79,7 +85,6 @@ async function initDb() {
     console.log('✅ Database initialized');
     return db;
 }
-exports.initDb = initDb;
 function saveDb() {
     if (!db)
         return;
@@ -89,14 +94,12 @@ function saveDb() {
     const data = db.export();
     fs_1.default.writeFileSync(dbPath, data);
 }
-exports.saveDb = saveDb;
 function getDb() {
     if (!db) {
         throw new Error('Database not initialized. Call initDb() first.');
     }
     return db;
 }
-exports.getDb = getDb;
 // Helper functions for easier querying
 function dbRun(sql, params = []) {
     db.run(sql, params);
@@ -107,7 +110,6 @@ function dbRun(sql, params = []) {
         changes: result?.values[0]?.[1] || 0
     };
 }
-exports.dbRun = dbRun;
 function dbGet(sql, params = []) {
     const stmt = db.prepare(sql);
     stmt.bind(params);
@@ -122,7 +124,6 @@ function dbGet(sql, params = []) {
     stmt.free();
     return null;
 }
-exports.dbGet = dbGet;
 function dbAll(sql, params = []) {
     const stmt = db.prepare(sql);
     stmt.bind(params);
@@ -137,12 +138,10 @@ function dbAll(sql, params = []) {
     stmt.free();
     return results;
 }
-exports.dbAll = dbAll;
 function closeDb() {
     if (db) {
         saveDb();
         db.close();
     }
 }
-exports.closeDb = closeDb;
 //# sourceMappingURL=database.js.map

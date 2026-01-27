@@ -1,4 +1,3 @@
-/// <reference path="../../src/types/sql.js.d.ts" />
 import { Database as SqlJsDatabase } from 'sql.js';
 export declare function initDb(): Promise<SqlJsDatabase>;
 export declare function saveDb(): void;

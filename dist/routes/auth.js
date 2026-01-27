@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.authenticateToken = void 0;
+exports.authenticateToken = authenticateToken;
 const express_1 = require("express");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const database_1 = require("../db/database");
@@ -160,6 +160,5 @@ function authenticateToken(req, res, next) {
         return res.status(401).json({ error: 'Invalid or expired token' });
     }
 }
-exports.authenticateToken = authenticateToken;
 exports.default = router;
 //# sourceMappingURL=auth.js.map

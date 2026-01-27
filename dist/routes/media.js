@@ -99,7 +99,7 @@ router.post('/upload', auth_1.authenticateToken, upload.single('file'), handleMu
 // Download encrypted media
 router.get('/download/:filename', auth_1.authenticateToken, (req, res) => {
     try {
-        const { filename } = req.params;
+        const filename = req.params.filename;
         const userId = req.user.userId;
         // Sanitize filename to prevent path traversal
         const sanitizedFilename = path_1.default.basename(filename);

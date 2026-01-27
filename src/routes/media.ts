@@ -106,7 +106,7 @@ router.post('/upload', authenticateToken, upload.single('file'), handleMulterErr
 // Download encrypted media
 router.get('/download/:filename', authenticateToken, (req: Request, res: Response) => {
     try {
-        const { filename } = req.params;
+        const filename = req.params.filename as string;
         const userId = (req as any).user.userId;
 
         // Sanitize filename to prevent path traversal
@@ -144,7 +144,7 @@ router.get('/download/:filename', authenticateToken, (req: Request, res: Respons
 // Delete media
 router.delete('/:mediaId', authenticateToken, (req: Request, res: Response) => {
     try {
-        const mediaId = parseInt(req.params.mediaId);
+        const mediaId = parseInt(req.params.mediaId as string);
         const userId = (req as any).user.userId;
 
         if (isNaN(mediaId) || mediaId < 1) {

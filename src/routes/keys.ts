@@ -7,7 +7,7 @@ const router = Router();
 // Get user's key bundle (for establishing Signal session) - requires auth
 router.get('/bundle/:userId', authenticateToken, (req: Request, res: Response) => {
     try {
-        const userId = parseInt(req.params.userId);
+        const userId = parseInt(req.params.userId as string);
         const requestingUserId = (req as any).user.userId;
 
         if (isNaN(userId) || userId < 1) {
