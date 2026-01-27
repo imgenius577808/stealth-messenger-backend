@@ -9,8 +9,13 @@ const sqlite3_1 = __importDefault(require("sqlite3"));
 const sqlite_1 = require("sqlite");
 let db;
 async function initDb() {
+    // Use /tmp for cloud deployments (writable directory)
+    const dbPath = process.env.NODE_ENV === 'production'
+        ? '/tmp/database.sqlite'
+        : process.env.DATABASE_URL || './database.sqlite';
+    console.log(`Using database at: ${dbPath}`);
     db = await (0, sqlite_1.open)({
-        filename: process.env.DATABASE_URL || './database.sqlite',
+        filename: dbPath,
         driver: sqlite3_1.default.Database
     });
     await db.exec(`
